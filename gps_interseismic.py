@@ -38,16 +38,3 @@ def fitGPS(t,p,eqt=None):
 	sol=np.linalg.lstsq(gtg,np.dot(greenf,p),rcond=-1)[0]
 
 	return sol,greenf
-
-
-
-if __name__ == "__main__": 
-	files=glob.glob("*COR")
-	for fp in files:
-		loadin=np.loadtxt(fp,usecols=[0,6])
-		solution= fitGPS(loadin[:,0],loadin[:,1],[julianday(2010,3,4),julianday(2016,2,6)])
-
-		plt.plot(loadin[:,0],loadin[:,1],'^',ms=0.5)
-		plt.plot(loadin[:,0],np.dot(solution[0],solution[1]))
-		plt.savefig(fp+"_fit"+".jpg")
-		plt.close()
